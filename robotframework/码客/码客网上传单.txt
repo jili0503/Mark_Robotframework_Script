@@ -1,0 +1,43 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          外部关键字.txt
+
+*** Test Cases ***
+检查缩略图
+    [Tags]    传单
+    登陆    18602886277    111111
+    sleep    5s
+    go to    http://leaflet.chanjet.net/flyer/index.html
+    Page Should Contain Image    http://leaflet.chanjet.net/file/flyer/screenshot/333x500/24/24-4105.jpg?2013-03-28T13:29:16
+    sleep    3s
+    close browser
+
+新建传单并保存
+    登陆    18602886277    111111
+    sleep    3s
+    go to    http://leaflet.chanjet.net/flyer/index.html
+    Click Element    xpath=//*[@id="z_newhead_con"]/div/a/input
+    sleep    2s
+    Click Element    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
+    sleep    2s
+    Click Element    xpath=//*[@id="submit_button"]
+    sleep    5s
+    Page Should Contain Link    xpath=//*[@id="save_img"]
+    sleep    2s
+    close browser
+
+新建传单并发布
+    登陆    18602886277    111111
+    sleep    3s
+    go to    http://leaflet.chanjet.net/flyer/index.html
+    Click Element    xpath=//*[@id="z_newhead_con"]/div/a/input
+    sleep    2s
+    Click Element    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
+    sleep    2s
+    Click Element    xpath=//*[@id="publish_save_button"]
+    sleep    5s
+    Page Should Contain Element    xpath=//*[@id="publish_button"]
+    sleep    2s
+    close browser
+
+*** Keywords ***

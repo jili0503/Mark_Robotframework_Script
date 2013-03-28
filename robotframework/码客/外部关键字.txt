@@ -1,0 +1,12 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+登陆
+    [Arguments]    ${username}    ${password}
+    Open Browser    http://leaflet.chanjet.net
+    sleep    3s
+    Input Text    Xpath=//*[@id="login_name"]    ${username}
+    Input Text    Xpath=//*[@id="login_password"]    ${password}
+    sleep    2s
+    Click Button    Xpath=//*[@id="login_submit"]

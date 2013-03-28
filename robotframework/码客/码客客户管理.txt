@@ -1,0 +1,10 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          外部关键字.txt
+
+*** Test Cases ***
+登录
+    登陆    18602886277    111111
+    sleep    5s
+
+*** Keywords ***
