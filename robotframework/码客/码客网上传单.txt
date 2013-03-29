@@ -1,6 +1,7 @@
 *** Settings ***
 Library           Selenium2Library
 Resource          外部关键字.txt
+Resource          外部关键字.txt
 
 *** Test Cases ***
 检查缩略图
@@ -14,30 +15,57 @@ Resource          外部关键字.txt
 
 新建传单并保存
     登陆    18602886277    111111
-    sleep    3s
-    go to    http://leaflet.chanjet.net/flyer/index.html
-    Click Element    xpath=//*[@id="z_newhead_con"]/div/a/input
-    sleep    2s
-    Click Element    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
-    sleep    2s
+    新建传单
+    wait until page contains element    //*[@id="publish_save_button"]
     Click Element    xpath=//*[@id="submit_button"]
-    sleep    5s
+    sleep    2s
     Page Should Contain Link    xpath=//*[@id="save_img"]
     sleep    2s
     close browser
 
 新建传单并发布
     登陆    18602886277    111111
-    sleep    3s
-    go to    http://leaflet.chanjet.net/flyer/index.html
-    Click Element    xpath=//*[@id="z_newhead_con"]/div/a/input
-    sleep    2s
-    Click Element    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
-    sleep    2s
+    新建传单
+    wait until page contains element    //*[@id="publish_save_button"]
     Click Element    xpath=//*[@id="publish_save_button"]
-    sleep    5s
-    Page Should Contain Element    xpath=//*[@id="publish_button"]
     sleep    2s
+    wait until page contains element    xpath=/html/body/div[2]/div/div/div[2]/div[6]/div[2]/p
+    ${new flyer url_2}    get value    xpath=//*[@id="flyer_view_url"]
+    Page Should Contain Element    xpath=/html/body/div[2]/div/div/div[2]/div[6]/div[2]/p
+    goto    ${new flyer url_2}
+    page should contain element    xpath=/html/body/div[1]/div/div/div[1]/a
+    sleep    3s
+    close browser
+
+参照新增传单
+    登陆    18602886277    111111
+    wait until page contains element    xpath=//*[@id="homeHeadId"]/div[1]/img
+    goto    http://leaflet.chanjet.net/flyer/index.html
+    wait until page contains element    xpath=//*[@id="z_toolcon_con_title"]/h2
+    click link    xpath=//*[@id="z_toolcon_con_wrap"]/div[2]/div/div[1]/div[1]/div[1]/a
+    wait until page contains element    xpath=//*[@id="setNotice_botton"]
+    click button    xpath=//*[@id="publish_save_button"]
+    wait until page contains element    xpath=//*[@id="email_flyer_button"]
+    ${new flyer url}    GET value    xpath=//*[@id="flyer_view_url"]
+    sleep    3s
+    goto    ${new flyer url}
+    wait until page contains element    xpath=/html/body/div[1]/div/div/div[1]/a
+    sleep    3s
+    close browser
+
+从模板创建传单
+    登陆    18602886277    111111
+    新建传单
+    wait until page contains element    //*[@id="publish_save_button"]
+    sleep    4s
+    Click Element    xpath=//*[@id="publish_save_button"]
+    sleep    2s
+    wait until page contains element    xpath=/html/body/div[2]/div/div/div[2]/div[6]/div[2]/p
+    ${new flyer url}    get value    xpath=//*[@id="flyer_view_url"]
+    Page Should Contain Element    xpath=/html/body/div[2]/div/div/div[2]/div[6]/div[2]/p
+    goto    ${new flyer url}
+    page should contain element    xpath=/html/body/div[1]/div/div/div[1]/a
+    sleep    3s
     close browser
 
 *** Keywords ***

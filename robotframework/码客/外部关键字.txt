@@ -10,3 +10,17 @@ Library           Selenium2Library
     Input Text    Xpath=//*[@id="login_password"]    ${password}
     sleep    2s
     Click Button    Xpath=//*[@id="login_submit"]
+
+新建传单
+    sleep    3s
+    go to    http://leaflet.chanjet.net/flyer/index.html
+    Click Element    xpath=//*[@id="z_newhead_con"]/div/a/input
+    sleep    1s
+    Click Element    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
+
+产品推广
+    [Arguments]    ${style}
+    set variable    空白模板    xpath=//*[@id="z_newbuild"]/div/div/div[1]/div/input
+
+空白模板
+    set variable    空白模板
